@@ -1,0 +1,32 @@
+.light {
+  animation: none;
+  border-radius: 50%;
+  box-sizing: border-box;
+  cursor: pointer;
+  height: 200px;
+  opacity: 0.4;
+  transition: 0.2s;
+  width: 200px;
+  display: table-cell;
+  vertical-align: inherit;
+}
+
+.light.on {
+  opacity: 1.0;
+  transform: scale(1.05);
+}
+
+.light.small {
+  height: 50px;
+  width: 50px;
+}
+
+.light.medium {
+  height: 100px;
+  width: 100px;
+}
+
+.light.large {
+  height: 200px;
+  width: 200px;
+}
