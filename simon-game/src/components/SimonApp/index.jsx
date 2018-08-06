@@ -12,31 +12,32 @@ class SimonApp extends React.Component {
     this.state = {
       currentLight: 0,
       colors: ['green', 'yellow', 'blue', 'red'],
+      list: [],
+      playerList: [],
+      round: 0,
+      playerTurn: false,
     };
   }
 
   _changeLight() {
-    const {
-      currentLight,
-      colors,
-    } = this.state;
-    this.setState({
-      currentLight: (currentLight + 1) % colors.length,
-    })
-  }
+    if(this.state.list.length <= this.state.round){
+      const {
+        currentLight,
+        colors,
+        list,
+        round,
+      } = this.state;
+      this.setState({
+        currentLight: (currentLight + getRndInteger(0,3)) % colors.length,
+        round: round + 1,
+        })
+      let element = this.state.list;
+      element.push(currentLight);
 
-  _addRandomColor() {
-    const { colors } = this.state;
-    const red = getRndInteger(0, 255);
-    const green = getRndInteger(0, 255);
-    const blue = getRndInteger(0, 255);
-
-    this.setState({
-      colors: [
-        ...colors,
-        `rgb(${red}, ${green}, ${blue})`,
-      ]
-    });
+      this.setState({ list: element });
+      console.log(list);
+      //console.log(`lenght ${this.state.list.length}`);
+    }
   }
 
   _startRotating() {
@@ -46,9 +47,22 @@ class SimonApp extends React.Component {
     });
   }
 
+  _changeFlag(){
+    if(this.state.playerTurn === false){
+      this.setState({playerTurn: true});
+    }
+    else{
+      this.setState({playerTurn: false});
+    }
+  }
+
   _stopRotating() {
     const { timer } = this.state;
     clearInterval(timer);
+    this.setState({
+      list: [],
+      round: 0,
+    })
   }
 
   render() {
