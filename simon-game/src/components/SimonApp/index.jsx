@@ -14,34 +14,32 @@ class SimonApp extends React.Component {
       colors: ['green', 'yellow', 'blue', 'red'],
       list: [],
       playerList: [],
-      round: 0,
+      round: 5,
       playerTurn: false,
-      lim: 4, 
+      lim: 1, 
     };
   }
 
   _changeLight() {
-    if(this.state.round < 4){
-      if(this.state.list.length <= this.state.round){
-        const {
-          currentLight,
-          colors,
-          list,
-          round,
-          lim, 
-          playerTurn, 
-        } = this.state;
-        this.setState({
-          currentLight: (currentLight + getRndInteger(0,3)) % colors.length,
-          round: round + 1,
-          })
-        let element = this.state.list;
-        element.push(currentLight);
+    if(this.state.list.length <= this.state.round){
+      const {
+        currentLight,
+        colors,
+        list,
+        round,
+        lim, 
+        playerTurn, 
+      } = this.state;
+      this.setState({
+        currentLight: (currentLight + getRndInteger(0,3)) % colors.length,
+        lim: lim + 1,
+        })
+      let element = this.state.list;
+      element.push(currentLight);
 
-        this.setState({ list: element });
-        console.log(list);
-        //console.log(`lenght ${this.state.list.length}`);
-      }
+      this.setState({ list: element });
+      console.log(list);
+      //console.log(`lenght ${this.state.list.length}`);
     }
   }
 
@@ -75,27 +73,31 @@ class SimonApp extends React.Component {
   }
 
   _clickedPlayer = (colInfo) => {
-    const { list, playerList, playerTurn } = this.state;
+    const { playerList, lim, playerTurn, round } = this.state;
     playerList.push(colInfo);
     this.setState({ playerList: playerList });
     
     console.log(playerList);
+    console.log(playerList.length);
+    console.log(lim);
+
+    if(playerList.lenght === lim ){
+      this.setState({ playerTurn: false });
+      this._game();
+    }
   }
 
   _game() {
     const { list, playerList, playerTurn, round, lim  } = this.state;
     if(playerTurn === false){
       this._startRotating();
-      if(round <= lim){
+      if(list.length === round){
+        console.log('hola');
         this.setState({ playerTurn: true });
       }
     }
     if(playerTurn === true ){
       this._clickedPlayer();
-      if(playerList.length <= list.length){
-        this.setState({playerTurn: false}); 
-      }
-      //this.setState({playerTurn: false}); 
     }
     //console.log(list);
   }
