@@ -11,7 +11,8 @@ const POSSIBLE_SIZES = [
 const Light = ({
     isTurnedOn = false, 
     color = 'red', 
-    size = 'small'
+    size = 'small',
+    clicked = (colInfo='')=>{console.log(colInfo)} //Print the color picked by the player
 }) => (
     <div className={
         `
@@ -24,6 +25,9 @@ const Light = ({
         {
             background: color,
         }
+    }
+    onClick={
+        () => clicked(color)
     }
     /> 
 );

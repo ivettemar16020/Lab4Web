@@ -4,9 +4,10 @@ import Light from '../Light';
 import './simonlight.css'
 
 const SimonLight = ({
-    colors = ['red', 'yellow', 'green'],
+    colors = ['red', 'yellow', 'green', 'blue'],
     turnedOnLight = 'red',
     size = 'small',
+    clicked = (colInfo='')=>{console.log('clicked')},
 }) => (
     <div className="lightContainer">
         <div className="simonLight">
@@ -18,6 +19,7 @@ const SimonLight = ({
                     color={color}
                     size={size}
                     isTurnedOn={color === turnedOnLight}
+                    clicked={clicked}
                     />
                 )
             )
